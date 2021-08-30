@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg-gray-50">
     <div class="flex flex-row max-h-screen">
       <aside class="flex flex-col w-1/3 border-r">
         <nav
