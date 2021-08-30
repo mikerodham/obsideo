@@ -85,7 +85,7 @@ const actions = {
   moveKidsBall: "Move kids ball",
   movesKidsToys: "Moves kids toys",
   openDoors: "Opens doors",
-  openDrawers: "Opens drawers",
+  opensDrawers: "Opens drawers",
   pentagrams: "Pentagrams on floor",
   playKidsBall: "Plays with kids ball",
   rainBlood: "Raining blood",
