@@ -1,10 +1,20 @@
 @tailwind base;
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
 }
 @tailwind components;
 
-
 @tailwind utilities;
+
+.discord {
+  background-color: #5865f2;
+  color: #ffffff;
+}
+
+.steam {
+  background-color: #171a21;
+  color: #ffffff;
+}

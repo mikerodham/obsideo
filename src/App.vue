@@ -1,9 +1,9 @@
 <template>
   <div id="app" class="bg-gray-50">
     <div class="flex flex-row max-h-screen">
-      <aside class="flex flex-col w-1/3 border-r">
+      <aside class="flex flex-col w-1/3 border-r bg-indigo-200">
         <nav
-          class="flex-1 min-h-0 overflow-y-auto bg-indigo-200"
+          class="flex-1 min-h-0 overflow-y-auto"
           aria-label="List of ghost actions"
         >
           <ul>
@@ -22,26 +22,84 @@
         </nav>
       </aside>
       <main class="flex flex-col w-2/3 relative">
+        <div class="flex flex-row w-full absolute justify-between p-4">
+          <button
+            class="inline-flex text-white px-4 py-2 uppercase font-semibold mr-4"
+            :class="{
+              'bg-gray-700 cursor-not-allowed': selected.length === 0,
+              'bg-green-700': selected.length > 0,
+            }"
+            :disabled="selected.length === 0"
+            @click="selected = []"
+          >
+            Reset Selection
+          </button>
+
+          <div class="flex flex-row">
+            <a
+              class="inline-flex text-white px-4 py-2 uppercase font-semibold steam mr-4"
+              href="https://store.steampowered.com/app/1708460/Obsideo/"
+            >
+              Steam Store
+            </a>
+
+            <a
+              class="inline-flex text-white px-4 py-2 uppercase font-semibold discord"
+              href="https://discord.gg/obsideo"
+            >
+              Join Discord
+            </a>
+          </div>
+        </div>
         <div class="flex flex-col flex-grow items-center justify-center">
-          <h1 class="text-2xl text-gray-600">Your ghost could be...</h1>
+          <h2
+            class="text-2xl text-gray-600 mb-4"
+            v-if="selected.length > 0 && this.possibility.length > 0"
+          >
+            Your ghost could be...
+          </h2>
+          <h2
+            class="text-2xl text-gray-600 mb-4 px-8 text-center"
+            v-if="selected.length === 0"
+          >
+            Select an evidence first and your ghost types will appear here.
+          </h2>
+
+          <h2
+            class="text-2xl text-gray-600 mb-4 px-8 text-center"
+            v-if="selected.length > 0 && this.possibility.length === 0"
+          >
+            We could not find a match.
+            <span>
+              This could be you've entered something wrong, due to a bug with
+              our website or due to a bug with the game.
+            </span>
+          </h2>
           <h1 class="text-4xl" v-for="p in possibility" :key="p">{{ p }}</h1>
         </div>
 
         <footer
-          class="flex w-full h-16 absolute bottom-0 left-0 items-center justify-center font-semibold text-gray-500"
+          class="flex flex-col w-full h-20 absolute bottom-0 left-0 items-center justify-center"
         >
-          Built by
-          <a
-            class="m-1 hover:text-indigo-700"
-            href="https://steamcommunity.com/id/Switchy24/"
-            >Switchy</a
-          >
-          &
-          <a
-            class="m-1 hover:text-indigo-700"
-            href="https://steamcommunity.com/profiles/76561198054156585/"
-            >Tottsiee</a
-          >
+          <div class="built-by font-semibold text-gray-500">
+            Built by
+            <a
+              class="hover:text-indigo-700"
+              href="https://steamcommunity.com/id/Switchy24/"
+              >Switchy</a
+            >
+            &
+            <a
+              class="hover:text-indigo-700"
+              href="https://steamcommunity.com/profiles/76561198054156585/"
+              >Tottsiee</a
+            >
+          </div>
+          <div class="cookie-disclaimer text-gray-400 text-xs m-2">
+            This website uses cookies, specifically google analytics. We don't
+            store any information, we don't use any information. Purely just to
+            see how active this site is.
+          </div>
         </footer>
       </main>
     </div>
@@ -131,6 +189,10 @@ export default {
     },
 
     possibility() {
+      if (this.selected.length === 0) {
+        return null;
+      }
+
       var possible = [];
       let ghosts = Object.keys(this.ghosts);
 
