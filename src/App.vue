@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="bg-gray-50">
-    <div class="flex flex-row max-h-screen">
-      <aside class="flex flex-col w-1/3 border-r bg-indigo-200">
+    <div class="flex flex-row max-h-screen overflow-hidden">
+      <aside class="flex flex-col w-1/2 sm:w-1/3 border-r bg-indigo-200">
         <nav
           class="flex-1 min-h-0 overflow-y-auto"
           aria-label="List of ghost actions"
@@ -15,16 +15,18 @@
               @click="selectAction(a)"
             >
               <div class="flex flex-row justify-between items-center">
-                <h3 class="text-3xl">{{ a }}</h3>
+                <h3 class="sm:text-xl md:text-2xl">{{ a }}</h3>
               </div>
             </li>
           </ul>
         </nav>
       </aside>
-      <main class="flex flex-col w-2/3 relative">
-        <div class="flex flex-row w-full absolute justify-between p-4">
+      <main class="flex flex-col w-1/2 sm:w-2/3 relative">
+        <div
+          class="flex flex-col sm:flex-row w-full absolute justify-between p-4"
+        >
           <button
-            class="inline-flex text-white px-4 py-2 uppercase font-semibold mr-4"
+            class="block text-white px-4 py-2 uppercase font-semibold mr-4 text-xs md:text-base mb-4 sm:mb-0"
             :class="{
               'bg-gray-700 cursor-not-allowed': selected.length === 0,
               'bg-green-700': selected.length > 0,
@@ -35,16 +37,16 @@
             Reset Selection
           </button>
 
-          <div class="flex flex-row">
+          <div class="hidden sm:flex flex-col sm:flex-row">
             <a
-              class="inline-flex text-white px-4 py-2 uppercase font-semibold steam mr-4"
+              class="text-center text-white px-4 py-2 uppercase font-semibold steam mr-4 text-xs md:text-base"
               href="https://store.steampowered.com/app/1708460/Obsideo/"
             >
               Steam Store
             </a>
 
             <a
-              class="inline-flex text-white px-4 py-2 uppercase font-semibold discord"
+              class="text-center text-white px-4 py-2 uppercase font-semibold discord mr-4 sm:mr-4 md:mr-0 text-xs md:text-base"
               href="https://discord.gg/obsideo"
             >
               Join Discord
@@ -53,20 +55,20 @@
         </div>
         <div class="flex flex-col flex-grow items-center justify-center">
           <h2
-            class="text-2xl text-gray-600 mb-4"
+            class="sm:text-xl md:text-2xl text-gray-600 mb-4"
             v-if="selected.length > 0 && this.possibility.length > 0"
           >
             Your ghost could be...
           </h2>
           <h2
-            class="text-2xl text-gray-600 mb-4 px-8 text-center"
+            class="sm:text-xl md:text-2xl text-gray-600 mb-4 px-8 text-center"
             v-if="selected.length === 0"
           >
             Select an evidence first and your ghost types will appear here.
           </h2>
 
           <h2
-            class="text-2xl text-gray-600 mb-4 px-8 text-center"
+            class="sm:text-xl md:text-2xl text-gray-600 mb-4 px-8 text-center"
             v-if="selected.length > 0 && this.possibility.length === 0"
           >
             We could not find a match.
@@ -75,13 +77,21 @@
               our website or due to a bug with the game.
             </span>
           </h2>
-          <h1 class="text-4xl" v-for="p in possibility" :key="p">{{ p }}</h1>
+          <h1
+            class="text-xl sm:text-2xl md:text-4xl"
+            v-for="p in possibility"
+            :key="p"
+          >
+            {{ p }}
+          </h1>
         </div>
 
         <footer
-          class="flex flex-col w-full h-20 absolute bottom-0 left-0 items-center justify-center"
+          class="flex flex-col w-full h-12 md:h-20 absolute bottom-0 left-0 items-center justify-center"
         >
-          <div class="built-by font-semibold text-gray-500">
+          <div
+            class="built-by font-semibold text-gray-500 text-center text-xs sm:text-base"
+          >
             Built by
             <a
               class="hover:text-indigo-700"
@@ -95,7 +105,9 @@
               >Tottsiee</a
             >
           </div>
-          <div class="cookie-disclaimer text-gray-400 text-xs m-2">
+          <div
+            class="hidden md:block cookie-disclaimer text-gray-400 text-xs m-2"
+          >
             This website uses cookies, specifically google analytics. We don't
             store any information, we don't use any information. Purely just to
             see how active this site is.
@@ -110,12 +122,12 @@
 const actions = {
   appear: "Appears",
   bathBlood: "Bath filled with blood",
-  bloodHandprints: "Bloody Handprints",
+  bloodHandprints: "Bloody handprints",
   bloodPools: "Blood pools",
   bloodWriting: "Blood writing",
   blowsOutCandles: "Blows out candles",
   breakerOff: "Turns off breaker",
-  breathing: "Disembodied Breathing",
+  breathing: "Disembodied breathing",
   bruises: "Bruises the player (check arm)",
   chairCeiling: "Pins chair to ceiling",
   changeFlashlight: "Changes your flashlight",
@@ -150,7 +162,7 @@ const actions = {
   ringPhone: "Rings the phone",
   rockingChair: "Rocks the rocking chair",
   rollKidsBall: "Rolls kids ball",
-  scribblePaintings: "Writes/Scribbles on paintings",
+  scribblePaintings: "Writes / Scribbles on paintings",
   sinkBlood: "Sink filled with blood",
   smashBottles: "Smashes bottles",
   smashPlates: "Smashes plates",
@@ -175,7 +187,7 @@ const actions = {
   toggleOven: "Turns on/off oven",
   toggleRadio: "Turns on/off radio",
   toggleTV: "Turns on/off television",
-  upsideDownPainting: "Paintings upside down.",
+  upsideDownPainting: "Paintings upside down",
   writingMirrors: "Writing on mirrors",
 };
 
