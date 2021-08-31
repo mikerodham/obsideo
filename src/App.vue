@@ -369,6 +369,7 @@ export default {
             actions.movesKidsToys,
             actions.throwsKidsBall,
             actions.knockPaintings,
+            actions.stabWalls
           ],
         },
         yurei: {
