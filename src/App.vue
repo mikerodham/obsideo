@@ -120,7 +120,7 @@
 
 <script>
 const actions = {
-  appear: "Appears",
+  // appear: "Appears",  // Disabled for now
   bathBlood: "Bath filled with blood",
   bloodHandprints: "Bloody handprints",
   bloodPools: "Blood pools",
@@ -369,7 +369,7 @@ export default {
             actions.movesKidsToys,
             actions.throwsKidsBall,
             actions.knockPaintings,
-            actions.stabWalls
+            actions.stabWalls,
           ],
         },
         yurei: {
@@ -418,7 +418,7 @@ export default {
             actions.crucifixWalls,
             actions.knocksDownFridge,
             actions.blowsOutCandles,
-            actions.appear,
+            // actions.appear,
             actions.toggleTV,
             actions.toggleKettle,
             actions.knockPaintings,
