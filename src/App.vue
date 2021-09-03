@@ -1,10 +1,38 @@
 <template>
-  <div id="app" class="bg-gray-50">
-    <div class="flex flex-row max-h-screen overflow-hidden">
+  <div id="app" class="min-h-screen bg-gray-50">
+    <div class="flex flex-row min-h-screen max-h-screen overflow-hidden">
       <aside class="flex flex-col w-1/2 sm:w-1/4 border-r bg-indigo-200">
         <header>
           <img src="./assets/header.jpg" class="w-full h-auto" />
         </header>
+        <div class="flex flex-row bg-indigo-600">
+          <input
+            type="text"
+            placeholder="Search"
+            class="px-2 py-2 bg-transparent text-white placeholder-white outline-none flex-grow"
+            v-model="filterActions"
+          />
+          <button
+            class="text-white px-2"
+            @click="filterActions = ''"
+            v-if="filterActions.length > 0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </button>
+        </div>
         <nav
           class="flex-1 min-h-0 overflow-y-auto"
           aria-label="List of ghost actions"
@@ -22,6 +50,14 @@
             >
               <div class="flex flex-row justify-between items-center">
                 <h3 class="sm:text-xl md:text-2xl">{{ a }}</h3>
+              </div>
+            </li>
+
+            <li v-if="sortedActions.length === 0">
+              <div class="flex flex-row justify-between items-center">
+                <h3 class="sm:text-lg md:text-xl w-full text-center py-4">
+                  No actions found.
+                </h3>
               </div>
             </li>
           </ul>
@@ -172,7 +208,6 @@ const actions = {
   bloodPools: "Blood pools",
   bloodWriting: "Blood writing",
   blowsOutCandles: "Blows out candles",
-  breakerOff: "Turns off breaker",
   breathing: "Disembodied breathing",
   bruises: "Bruises the player (check arm)",
   chairCeiling: "Pins chair to ceiling",
@@ -190,7 +225,6 @@ const actions = {
   graves: "Gravestones outside",
   hangDoll: "Hangs voodoo doll from ceiling",
   hissing: "Hissing",
-  kettleOn: "Turns on kettle",
   killPlants: "Kills plants",
   knockPaintings: "Knocks paintings off of walls",
   knocksDownFridge: "Knocks over the fridge",
@@ -198,35 +232,30 @@ const actions = {
   lockDoors: "Locks doors",
   moths: "Fill room with moths",
   moveDino: "Moves dino",
-  moveKidsBall: "Move kids ball",
-  movesKidsToys: "Moves kids toys",
-  openDoors: "Opens doors",
+  moveKidsBall: "Move ball",
   opensDrawers: "Opens drawers",
   pentagrams: "Pentagrams on floor",
-  playKidsBall: "Plays with kids ball",
   rainBlood: "Raining blood",
   ringPhone: "Rings the phone",
   rockingChair: "Rocks the rocking chair",
-  rollKidsBall: "Rolls kids ball",
-  scribblePaintings: "Writes / Scribbles on paintings",
+  rollKidsBall: "Rolls ball",
+  scribblePaintings: "Writing on paintings",
   sinkBlood: "Sink filled with blood",
   smashBottles: "Smashes bottles",
   smashPlates: "Smashes plates",
   smashWalls: "Smashes walls",
   smashWindow: "Smashes window (sound only)",
   spikeHR: "Spikes heart rate",
-  stabWalls: "Stabs Walls",
+  stabWalls: "Stabs walls",
   stealItems: "Steal household items",
   stealPaintings: "Steals paintings",
   stealsRugs: "Steals rugs",
   stringUkelele: "Strings the ukelele",
-  throwBall: "Throws footballs",
+  throwBall: "Throws ball",
   throwDino: "Throws dino",
-  throwKnives: "Throw Knives",
-  throwsKidsBall: "Throws kids ball",
-  throwsKidsToys: "Throws kids toys",
+  throwKnives: "Throws knives",
   toggleAlarm: "Turns on/off alarm",
-  toggleBreaker: "Turn on/off breaker",
+  toggleBreaker: "Turns on/off breaker",
   toggleDoors: "Opens / closes doors",
   toggleKettle: "Turns on/off kettle",
   toggleLights: "Turns on/off lights",
@@ -252,6 +281,11 @@ export default {
       let values = Object.values(actions);
 
       let sorted = values.sort();
+
+      sorted = sorted.filter((a) =>
+        a.toLowerCase().includes(this.filterActions.toLowerCase())
+      );
+
       return sorted;
     },
 
@@ -279,6 +313,7 @@ export default {
 
   data() {
     return {
+      filterActions: "",
       checklist: false,
       selected: [],
       actions: actions,
@@ -310,7 +345,7 @@ export default {
             actions.toggleKettle,
             actions.knockPaintings,
             actions.toggleAlarm,
-            actions.throwsKidsToys,
+            actions.throwDino,
             actions.rollKidsBall,
           ],
         },
@@ -329,7 +364,7 @@ export default {
             actions.lockDoors,
             actions.blowsOutCandles,
             actions.breathing,
-            actions.breakerOff,
+            actions.toggleBreaker,
             actions.liftsAllObjects,
             actions.chairCeiling,
             actions.toggleDoors,
@@ -338,9 +373,9 @@ export default {
             actions.toggleRadio,
             actions.toggleKettle,
             actions.knockPaintings,
-            actions.movesKidsToys,
-            actions.throwsKidsToys,
-            actions.playKidsBall,
+            actions.moveDino,
+            actions.throwDino,
+            actions.rollKidsBall,
           ],
         },
         demon: {
@@ -370,10 +405,10 @@ export default {
             actions.toggleTV,
             actions.toggleRadio,
             actions.knockPaintings,
-            actions.openDoors,
+            actions.toggleDoors,
             actions.scribblePaintings,
             actions.toggleAlarm,
-            actions.throwsKidsToys,
+            actions.throwDino,
             actions.moveKidsBall,
           ],
         },
@@ -396,7 +431,7 @@ export default {
             actions.toggleKettle,
             actions.knockPaintings,
             actions.toggleAlarm,
-            actions.movesKidsToys,
+            actions.moveDino,
           ],
         },
         oni: {
@@ -423,12 +458,12 @@ export default {
             actions.toggleTV,
             actions.toggleRadio,
             actions.toggleKettle,
-            actions.openDoors,
+            actions.toggleDoors,
             actions.scribblePaintings,
             actions.toggleAlarm,
             actions.bruises,
-            actions.movesKidsToys,
-            actions.throwsKidsBall,
+            actions.moveDino,
+            actions.throwBall,
             actions.knockPaintings,
             actions.stabWalls,
           ],
@@ -454,7 +489,7 @@ export default {
             actions.opensDrawers,
             actions.liftsAllObjects,
             actions.toggleLights,
-            actions.kettleOn,
+            actions.toggleKettle,
             actions.toggleAlarm,
             actions.smashWalls,
             actions.crying,
