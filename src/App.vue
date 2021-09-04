@@ -322,6 +322,7 @@ export default {
           exorcismItems: [exorcismItems.water, exorcismItems.rune],
           actions: [
             actions.throwKnives,
+            actions.smashPlates,
             actions.stabWalls,
             actions.floatingPainting,
             actions.stealItems,
