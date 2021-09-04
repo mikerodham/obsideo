@@ -384,6 +384,7 @@ export default {
           actions: [
             actions.throwKnives,
             actions.stabWalls,
+            actions.toggleKettle,
             actions.floatingPainting,
             actions.stealItems,
             actions.stringUkelele,
